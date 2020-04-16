@@ -135,9 +135,8 @@ function addPlantToEstate(estate, plant) {
  * Example: "A Rose which has green leaves that are rounded with a point.  The flowers are red concentric circles of pedals. "
  */
 function describePlant(plant) {
-    let description = "";
-    // Your Code Here!
-    // Return a string describing all the visual features of the given plant
+    let description = `A ${plant.type} which has ${plant.leafColor} leaves that ${plant.leafDescription}. Its flowers are ${plant.leafDescription}. `;
+   
     return description;
 }
 
@@ -150,12 +149,12 @@ function describePlant(plant) {
  * // Example: "The Rose Garden has 10 types of plants in it.  It contains: A"
  */
 function describeGarden(gardenName, listOfPlants) {
-    let description = "";
-    // Your Code Here!
-    // Given a list of plants, describe every plant in the list.
-    // return a string which is the description.
-    // Hint: You can just call describePlant() for each plant in the list
-    // Concatenting the description for each plant together into one big string.
+    let plantsLength =listOfPlants.length;
+    let description = `${gardenName} has ${listOfPlants.length} types of plants in it. It contains:`;
+    for (let plant of listOfPlants) {
+        description += "\n" + describePlant(plant);
+    }
+    
     return description;
 }
 
@@ -166,13 +165,12 @@ function describeGarden(gardenName, listOfPlants) {
  * This should describe every garden and every plant.
  */
 function describeEstate(estate) {
-    let description = `${describeGarden( 
-        "Rose Garden",
-        estate.roseArbor
-    )} ${describeGarden(
-        "Perennial Garden",
-        estate.perennialGarden
-    )} ${describeGarden("Slope Planters", estate.slopePlanters)}`;
+    const estateLength = estate.length;
+    let description = `The estate has ${estateLength} gardens.`;
+    for (let gardenName in estate) {
+        let listOfPlants = estate[gardenName];
+        description += "\n" + describeGarden(gardenName, listOfPlants);
+    }
    
     return description;
 }
@@ -290,8 +288,18 @@ function changeColorOfPlant(plant) {
  * Otherwise you will produce flowerless roses.
  */
 function cloneAllTheRosesAndChangeTheirColors(estate) {
-    // Your Code Here! 
-
+    let newRoses = [];
+    estate.roseArbor.forEach(function (rose) {
+      let newPlant = cloneRose(rose);
+      changeColorOfPlant(newPlant);
+      if (!newPlant.isFlawed) {
+        newRoses.push(newPlant);
+      }
+    });
+  
+    estate.roseArbor = estate.roseArbor.concat(newRoses);
+    return estate;
+  
     // for each rose...
 
     // Hint: Watch out for modifying an array you are currently looping through!  How can you avoid that?
