@@ -57,7 +57,8 @@ function createPlant(
     flowerColor,
     flowerDescription,
     gallonsWaterPerWeek,
-    amountOfSunNeeded) {
+    amountOfSunNeeded
+) {
     let plant = {
         type: type,
         isPerennial: isPerennial,
@@ -155,8 +156,6 @@ function addPlantToEstate(estate, plant) {
  */
 function describePlant(plant) {
     let description = `A ${plant.type} which has ${plant.leafColor} leaves that are ${plant.leafDescription}. The flowers are ${plant.flowerColor} ${plant.flowerDescription}.`;
-    // Your Code Here!
-    // Return a string describing all the visual features of the given plant
     return description;
 }
 
@@ -170,9 +169,9 @@ function describePlant(plant) {
  */
 function describeGarden(gardenName, listOfPlants) {
     let description = `The ${gardenName} has ${listOfPlants.length} types of plants in it. It contains: `;
-    listOfPlants.forEach(function (plant) {
-        description += describePlant(plant)
-    });
+    for (let plant of listOfPlants) {
+        description += "/n" + describePlant(plant);
+    }
     return description;
 }
 
@@ -183,15 +182,13 @@ function describeGarden(gardenName, listOfPlants) {
  * This should describe every garden and every plant.
  */
 function describeEstate(estate) {
-    let description = `${describeGarden(
-        "Rose Garden",
-        estate.roseArbor
-    )} ${describeGarden(
-        "Perennial Garden",
-        estate.perennialGarden
-    )} ${describeGarden("Slope Planters",
-        estate.slopePlanters)}`;
-    return description
+    const estateLength = estate.length;
+    let description = `The estate has ${estateLength} gardens.`;
+    for (let gardenName in estate) {
+        let listOfPlants = estate[gardenName]
+        description += "\n" + describeGarden(gardenName, listOfPlants);
+    }
+    return description;
 }
 
 /* ---------------------------------------------------------------------------
@@ -215,17 +212,12 @@ function describeEstate(estate) {
  */
 function calculateWaterUsagePerWeek(estate) {
     let numGallons = 0;
-    estate.roseArbor.forEach(function (plant) {
-        numGallons += plant.gallonsWaterPerWeek;
-    });
-    estate.perennialGarden.forEach(function (plant) {
-        numGallons += plant.gallonsWaterPerWeek;
-    });
-    estate.slopePlanters.forEach(function (plant) {
-        numGallons += plant.gallonsWaterPerWeek;
-    });
-    console.log(numGallons);
-    return Math.round(numGallons);
+    for (let gardenName in estate) {
+        for (let plant of estate[gardenName]) {
+            numGallons += plant.gallonsWaterPerWeek * 10; 
+        }
+    }
+    return numGallons / 10;
 }
 
 /* ---------------------------------------------------------------------------
@@ -259,8 +251,7 @@ function calculateWaterUsagePerWeek(estate) {
  */
 function cloneRose(plant) {
     let clone = {};
-    let propertyArray = Object.keys(plant);
-    for (let key of propertyArray) {
+    for (let key in plant) {
         clone[key] = plant[key];
     }
     return clone;
@@ -281,7 +272,8 @@ function cloneRose(plant) {
  * plant.
  */
 function changeColorOfPlant(plant) {
-    let newColors = ["Amber",
+    let newColors = [
+        "Amber",
         "Crimson",
         "Aqua",
         "Cerulean Blue",
@@ -319,16 +311,17 @@ function changeColorOfPlant(plant) {
  * Otherwise you will produce flowerless roses.
  */
 function cloneAllTheRosesAndChangeTheirColors(estate) {
-    let newRoses = [];
-    estate.roseArbor.forEach(function (rose) {
-        let newPlant = cloneRose(rose);
-        changeColorOfPlant(newPlant);
-        if (!newPlant.isFlawed) {
-            newRoses.push(newPlant);
+    let clonedRoses = [];
+    for (let rose of estate.roseArbor) {
+        if (rose.isFlawed) {
+            clonedRoses.push(cloneRose(rose));
+        } else {
+            clonedRoses.push(rose);
         }
-    });
-    estate.roseArbor = estate.roseArbor.concat(newRoses);
-    return estate;
+    }
+    for (let rose of clonedRoses) {
+        estate.roseArbor.push(rose);
+    }
 }
 
 /* 
