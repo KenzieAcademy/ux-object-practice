@@ -61,7 +61,7 @@ function createPlant(
     let plant = {
         type: type,
         isPerennial: isPerennial,
-        leafDescription: isPerennial,
+        leafDescription: leafDescription,
         leafColor: leafColor,
         flowerColor: flowerColor,
         flowerDescription: flowerDescription,
