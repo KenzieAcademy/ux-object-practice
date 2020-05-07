@@ -320,7 +320,7 @@ function cloneAllTheRosesAndChangeTheirColors(estate) {
         }
     }
     for (let rose of clonedRoses) {
-        estate.roseArbor.push(rose);
+        estate.roseArbor.push(rose)
     }
 }
 
