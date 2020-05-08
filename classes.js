@@ -10,10 +10,10 @@ class Plant {
         this.amountOfSunNeeded = amountOfSunNeeded;
     }
 
-    describe = () => {
+    describe() {
         let description = "";
-        description = `This plant is a ${this.type}, its color is ${this.flowerColor}.`
-        return description
+        description = `This is a ${this.type} which has ${this.leafColor} leaves that look like ${this.leafDescription} and the flowers are ${this.flowerColor}. the flower looks like ${this.flowerDescription}.`;
+        return description;
     }
 
     changeColor() {
@@ -31,14 +31,12 @@ class Plant {
         }
     }
 
-    clone = () => {
+    clone() {
         let clone = new Plant();
         for (let property in this) {
             clone[property] = this[property];
         }
-        console.log(clone);
         clone.changeColor;
-        console.log(clone)
         return clone;
     }
 }
@@ -49,12 +47,12 @@ class Garden {
         this.plants = [];
     }
 
-    describe = () => {
-        let description = `${this.name} has ${this.plants.length} types of plants. It contains:`;
-        for (let plant of this.plant) {
-            description += "/n" + plant.describe();
+    describe() {
+        let description = `The ${this.name} has ${this.plants} types of plants in it.  It contains: `;
+        for (let plant of this.plants) {
+            description += "\n" + plant.describe();
         }
-        return description
+        return description;
     }
 
     addPlant(plant) {
@@ -70,22 +68,60 @@ class Estate {
     }
 
     addPlant(plant) {
-        if (plant.type == "rose") {
-            this.roseArbor.push(plant)
-        } else if (plant.isPerennial == true && plant.amountOfSunNeeded <= 5) {
-            this.perennialGarden.push(plant)
+        if (plant.type === "rose") {
+            this.roseArbor.plants.push(plant)
+        } else if (plant.isPerennial && plant.amountOfSunNeeded <= 5) {
+            this.perennialGarden.plants.push(plant)
         } else {
-            this.slopePlanters.push(plant)
+            this.slopePlanters.plants.push(plant)
         }
     }
 
     describe() {
         const estateLength = this.length;
-        let description = 'The estate has ${estateLength} gardens.'
+        let description = `The estate has ${estateLength} gardens.`;
         for (let gardenName in this) {
             let garden = this[gardenName];
-            description += '/n' + garden.description;
+            description += "\n" + garden.describe();
         }
-        return description
+        return description;
+    }
+
+    calculateWaterUsagePerWeek() {
+        let numGallons = 0;
+        this.roseArbor.plants.forEach(function (plant) { numGallons += plant.gallonsWaterPerWeek });
+        this.perennialGarden.plants.forEach(function (plant) { numGallons += plant.gallonsWaterPerWeek });
+        this.slopePlanters.plants.forEach(function (plant) { numGallons += plant.gallonsWaterPerWeek });
+        let waterUseage = Math.floor(numGallons);
+        return waterUseage;
+    }
+
+    cloneAllTheRosesAndChangeTheirColors() {
+        let clonedRoses = [];
+        this.roseArbor.plants.forEach(function (rose) {
+            let clone = rose.clone();
+            if (!clone.isFlawed) {
+                clonedRoses.push(clone)
+            }
+        });
+        this.roseArbor.plants = this.roseArbor.plants.concat(clonedRoses)
     }
 }
+
+let myEstate = new Estate();
+
+firstPlant = new Plant("rose", true, "rounded with a point", "green", "red", "concentric circles of pedals", 0.8, 4);
+myEstate.addPlant(firstPlant);
+
+let secondPlant = new Plant("orchid", true, "long and wide with a point at the end", "green", "fuscia", "pedals surrounding a central mouth", 1.2, 2);
+myEstate.addPlant(secondPlant);
+
+let thirdPlant = new Plant("marigold", false, "thin and jagged along branches", "green", "yellow and orange", "rounded pedals in groups of five with a darker orange center", 0.8, 4);
+myEstate.addPlant(thirdPlant);
+
+myEstate.describe(); // This should print the whole description of the estate.
+
+myEstate.calculateWaterUsagePerWeek(); // This should print 2.8
+
+myEstate.cloneAllTheRosesAndChangeTheirColors(); // This should clone the rose and make a second one.
+console.log(myEstate.roseArbor.plants.length == 2);
