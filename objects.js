@@ -50,8 +50,18 @@
  * @param {number} amountOfSunNeeded - 0 to 10, representing the amount of sun needed
  */
 function createPlant(type, isPerennial, leafDescription, leafColor, flowerColor, flowerDescription, gallonsWaterPerWeek, amountOfSunNeeded) {
-    let plant = {};
+    let plant = {
+        type: type,
+        isPerennial: isPerennial,
+        leafDescription: leafDescription,
+        leafColor: leafColor,
+        flowerDescription: flowerDescription,
+        flowerColor: flowerColor,
+        gallonsWaterPerWeek: gallonsWaterPerWeek,
+        amountOfSunNeeded: amountOfSunNeeded
+    };
     // Your Code Here!
+  
     // Create a plant object, populate it with all of the values from the arguments, and return it.
     // Hint: You can name every key in your object the same as the variable from the argument to this function.  
     return plant;
@@ -94,6 +104,15 @@ function createEstate() {
  * This should add the given plant into one of the three arrays within the estate.
  */
 function addPlantToEstate(estate, plant) {
+    if(plant.type === "rose") {
+        estate.roseArbor.push(plant)
+    } else if(plant.isPerennial === true && plant.amountOfSunNeeded <= 5) {
+        estate.perennialGarden.push(plant)
+    }else{
+        estate.slopePlanters.push(plant)
+    }
+
+    
     // Your Code Here!
     // decide where to put the plant according to its features
     /*
@@ -142,7 +161,7 @@ function addPlantToEstate(estate, plant) {
  * Example: "A Rose which has green leaves that are rounded with a point.  The flowers are red concentric circles of pedals. "
  */
 function describePlant(plant) {
-    let description = "";
+    let description = `A ${plant.type} is ${plant.flowerColor} it needs ${plant.gallonsWaterPerWeek} gallons of water per week.`;
     // Your Code Here!
     // Return a string describing all the visual features of the given plant
     return description;
@@ -157,7 +176,7 @@ function describePlant(plant) {
  * // Example: "The Rose Garden has 10 types of plants in it.  It contains: A"
  */
 function describeGarden(gardenName, listOfPlants) {
-    let description = "";
+    let description = `The ${gardenName.estate} has ${listOfPlants.length} types of plants in it.`;
     // Your Code Here!
     // Given a list of plants, describe every plant in the list.
     // return a string which is the description.
@@ -174,7 +193,9 @@ function describeGarden(gardenName, listOfPlants) {
  */
 function describeEstate(estate) {
     let description = "";
+    
     // Your Code Here!
+
     // Return a string describing all the different visual features of all the gardens in the estate.
     // Feel free to make up various details.  
     // Hint: You can call describeGarden() for each garden of the estate.
@@ -203,6 +224,7 @@ function describeEstate(estate) {
 function calculateWaterUsagePerWeek(estate) {
     let numGallons = 0;
     // Your Code Here!
+    
 
     return numGallons;
 }
