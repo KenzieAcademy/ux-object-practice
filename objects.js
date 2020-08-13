@@ -354,13 +354,22 @@ function changeColorOfPlant(plant) {
  * Otherwise you will produce flowerless roses.
  */
 function cloneAllTheRosesAndChangeTheirColors(estate) {
-  let newPlant = [];
-
-  // for each rose...
-  // Hint: Watch out for modifying an array you are currently looping through!  How can you avoid that?
-  // Instead of putting the new plants immediately into the rose arbor, maybe store them in a new array
-  // until you have finished iterating.  Then you can add them in after your loop finishes.
+  let newRose = [];
+  for (let originalRose of estate.roseArbor) {
+    if (originalRose.isFlawed) {
+      newRose.push(newRose(originalRose));
+    } else {
+      newRose.push(originalRose);
+    }
+  }
+  for (let originalRose of newRose) {
+    estate.roseArbor.push(originalRose);
+  }
 }
+// for each rose...
+// Hint: Watch out for modifying an array you are currently looping through!  How can you avoid that?
+// Instead of putting the new plants immediately into the rose arbor, maybe store them in a new array
+// until you have finished iterating.  Then you can add them in after your loop finishes.
 
 /* 
    -------TESTS---------------------------------------------------------------
