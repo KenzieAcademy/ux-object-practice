@@ -59,7 +59,16 @@ function createPlant(
   gallonsWaterPerWeek,
   amountOfSunNeeded
 ) {
-  let plant = {};
+  let plant = {
+  type: "rose",
+  isPerennial: true,
+  leafDescription: ["rounded", + "with", + "a", + "point"],
+  leafColor: "green",
+  flowerColor: "red",
+  flowerDescription: ["concentric", "circles", "of", "pedals"],
+  gallonsWaterPerWeek: 0.8,
+  amountOfSunNeeded: 4,
+};  
   // Your Code Here!
   // Create a plant object, populate it with all of the values from the arguments, and return it.
   // Hint: You can name every key in your object the same as the variable from the argument to this function.
@@ -103,7 +112,14 @@ function createEstate() {
  * This should add the given plant into one of the three arrays within the estate.
  */
 function addPlantToEstate(estate, plant) {
-  // Your Code Here!
+  if (type = "rose") {
+    addPlantToEstate = "roseArbor";
+  } if (isPerennial = "true", + amountOfSunNeeded <=5 ) {
+    addPlantToEstate = "perennialGarden";
+  } else {
+    addPlantToEstate = "slopePlanters";
+  }
+    // Your Code Here!
   // decide where to put the plant according to its features
   /*
     if the plant is a rose
