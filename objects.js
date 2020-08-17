@@ -50,7 +50,16 @@
  * @param {number} amountOfSunNeeded - 0 to 10, representing the amount of sun needed
  */
 function createPlant(type, isPerennial, leafDescription, leafColor, flowerColor, flowerDescription, gallonsWaterPerWeek, amountOfSunNeeded) {
-    let plant = {};
+    let plant = {
+        type: type,
+        isPerennial: isPerennial,
+        leafDescription: leafDescription,
+        leafColor: leafColor,
+        flowerColor: flowerColor,
+        flowerDescription: flowerDescription,
+        gallonsWaterPerWeek: gallonsWaterPerWeek,
+        amountOfSunNeeded: amountOfSunNeeded,
+    };
     // Your Code Here!
     // Create a plant object, populate it with all of the values from the arguments, and return it.
     // Hint: You can name every key in your object the same as the variable from the argument to this function.  
@@ -103,6 +112,14 @@ function addPlantToEstate(estate, plant) {
         add it to the Perennial Garden
     else add it to the Slope Planters
     */
+   if (plant.type == "rose"){
+       estate.roseArbor.push (plant);
+   } else {if (plant.isPerennial == true && plant.amountOfSunNeeded <= 5) {
+       estate.perennialGarden.push (plant); 
+      } else {
+       estate.slopePlanters.push (plant);
+   }} 
+   return estate;
 }
 
 /* ------------------------------------------------
@@ -142,7 +159,7 @@ function addPlantToEstate(estate, plant) {
  * Example: "A Rose which has green leaves that are rounded with a point.  The flowers are red concentric circles of pedals. "
  */
 function describePlant(plant) {
-    let description = "";
+    let description = `${plant.type}: a ${plant.flowerColor} flower that looks like ${plant.flowerDescription}. It has ${plant.leafColor} leaves that are ${plant.leafDescription}.`;
     // Your Code Here!
     // Return a string describing all the visual features of the given plant
     return description;
@@ -157,13 +174,14 @@ function describePlant(plant) {
  * // Example: "The Rose Garden has 10 types of plants in it.  It contains: A"
  */
 function describeGarden(gardenName, listOfPlants) {
-    let description = "";
+    for (let i = 0; i < listOfPlants.length; i++) {
+    let description = (listOfPlants.length > 0) ? `The ${gardenName} area has ${listOfPlants.length} plants in it. Plants in garden - ${describePlant(listOfPlants[i])}` : `The ${gardenName} area is empty right now.`;
     // Your Code Here!
     // Given a list of plants, describe every plant in the list.
     // return a string which is the description.
     // Hint: You can just call describePlant() for each plant in the list
     // Concatenting the description for each plant together into one big string.
-    return description;
+    return description;}
 }
 
 /**
@@ -173,7 +191,7 @@ function describeGarden(gardenName, listOfPlants) {
  * This should describe every garden and every plant.
  */
 function describeEstate(estate) {
-    let description = "";
+    let description = `North of the Fountain of Flowers is the Rose Arbor. ${describeGarden("Rose Arbor", estate.roseArbor)} West of the Fountain of Flowers is the Perennial Garden. ${describeGarden("Perennnial Garden", estate.perennialGarden)} South and East of the Fountain of Flowers are the Sloped Planters. ${describeGarden("Sloped Planters", estate.slopePlanters)}`;
     // Your Code Here!
     // Return a string describing all the different visual features of all the gardens in the estate.
     // Feel free to make up various details.  
@@ -202,8 +220,25 @@ function describeEstate(estate) {
  */
 function calculateWaterUsagePerWeek(estate) {
     let numGallons = 0;
+    // for (var garden in estate) {
+    //     for (let i = 0; i < garden.length; i++) {
+    //         var plant = garden[i];
+    //         console.log(plant);
+    //         let plantThirst = plant.gallonsWaterPerWeek;
+    //         return plantThirst;
+    //     }
+    //     console.log(plantThirst);
+    // };
+    // 
+    // Array.from(estate).forEach(addGallons);
+    // function addGallons(value) {
+    //     let plantThirst = value.gallonsWaterPerWeek;
+    //     numGallons += plantThirst;
+    //     return numGallons;
+    // }
+    // I'm gonna eat my KEYBOARD.
+    console.log(numGallons);
     // Your Code Here!
-
     return numGallons;
 }
 
