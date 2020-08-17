@@ -184,7 +184,7 @@ function describePlant(plant) {
  * // Example: "The Rose Garden has 10 types of plants in it.  It contains: A"
  */
 function describeGarden(gardenName, listOfPlants) {
-  let description = `The ${gardenName} has ${listOfPlants.length} of plants in it. It contains:`;
+  let description = `The ${gardenName} has ${listOfPlants.length} plants in it. It contains:`;
   for (let i = 0; i < listOfPlants.length; i++) {
     description += describePlant(listOfPlants[i]);
   }
@@ -203,7 +203,7 @@ function describeGarden(gardenName, listOfPlants) {
  * This should describe every garden and every plant.
  */
 function describeEstate(estate) {
-  let description = `The ${Object.keys(estate).length}`;
+  let description = `th estate has ${Object.keys(estate).length} gardens:`;
   for (let allGardens in estate) {
     let listOfPlants = estate[allGardens];
     description += describeGarden(allGardens, listOfPlants);
@@ -237,31 +237,13 @@ function describeEstate(estate) {
 function calculateWaterUsagePerWeek(estate) {
   let numGallons = 0;
   // Your Code Here!
-  for (let i = 0; i < estate.roseArbor.length; i++) {
-    let plant = estate.roseArbor[i];
-    numGallons += plant.gallonsWaterPerWeek;
+  for (let allGardens in estate) {
+    let listOfPlants = estate[allGardens];
+    for (let plant of listOfPlants) {
+      numGallons += plant.gallonsWaterPerWeek;
+    }
   }
-
-  for (let i = 0; i < estate.perennialGarden.length; i++) {
-    let plant = estate.perennialGarden[i];
-    numGallons += plant.gallonsWaterPerWeek;
-  }
-
-  for (let i = 0; i < estate.slopePlanters.length; i++) {
-    let plant = estate.slopePlanters[i];
-    numGallons += plant.gallonsWaterPerWeek;
-  }
-
-  function 
-  // let totalGarden = Object.keys(estate);
-  // for (let i = 0; i < totalGarden.length; i++) {
-  //   let totalWater = totalGarden[i];
-  //   let garden = estate[totalWater];
-  //   numGallons += plant.gallonsWaterPerWeek;
-
-  //   return numGallons;
-  // }
-  return numGallons;
+  return Math.floor(numGallons);
 }
 
 /* ---------------------------------------------------------------------------
@@ -297,11 +279,11 @@ function calculateWaterUsagePerWeek(estate) {
 function cloneRose(plant) {
   let clone = {};
   // Your Code Here!
-  // for(let roses of estate.roseArbor){
-  //   if(plant.type === "rose"){
-  //     clone.push()
-  //   }
-  // }
+  for (let key in plant) {
+    if (plant.hasOwnProperty(key)) {
+      clone[key] = plant[key];
+    }
+  }
   // Given a plant, clone it and return the new plant
   // Hint: You do this in the Reading!  copyObject...
 
@@ -309,6 +291,13 @@ function cloneRose(plant) {
   return clone;
 }
 
+function cloneAllTheRoses(estate) {
+  let clonedRoses = [];
+  for (let rose of estate.roseArbor) {
+    clonesRoses.push(cloneRose(rose));
+  }
+  estate.roseArbor = estate.roseArbor.concat(clonedRoses);
+}
 //
 // DO NOT CHANGE ANYTHING IN THIS
 /**
