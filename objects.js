@@ -88,7 +88,7 @@ function createPlant(
     the roseArbor, the perennialGarden, and the slopePlanters.
 
     Now complete the function addPlantToEstate()
-    This should decide, based upon the plant's properties, where to put the plant in the estate.  
+    This should decide,t based upon the plant's properties, where to put the plant in the estate.  
 
     The rose arbor should contain all of the roses.
     The perennial garden should contain only perennials.  However, the perennial garden doesn't get that much sun.  
@@ -184,7 +184,7 @@ function describePlant(plant) {
  * // Example: "The Rose Garden has 10 types of plants in it.  It contains: A"
  */
 function describeGarden(gardenName, listOfPlants) {
-  let description = `The ${gardenName} has ${listOfPlants.length} of plant in it. It contains:`;
+  let description = `The ${gardenName} has ${listOfPlants.length} of plants in it. It contains:`;
   for (let i = 0; i < listOfPlants.length; i++) {
     description += describePlant(listOfPlants[i]);
   }
@@ -237,7 +237,30 @@ function describeEstate(estate) {
 function calculateWaterUsagePerWeek(estate) {
   let numGallons = 0;
   // Your Code Here!
+  for (let i = 0; i < estate.roseArbor.length; i++) {
+    let plant = estate.roseArbor[i];
+    numGallons += plant.gallonsWaterPerWeek;
+  }
 
+  for (let i = 0; i < estate.perennialGarden.length; i++) {
+    let plant = estate.perennialGarden[i];
+    numGallons += plant.gallonsWaterPerWeek;
+  }
+
+  for (let i = 0; i < estate.slopePlanters.length; i++) {
+    let plant = estate.slopePlanters[i];
+    numGallons += plant.gallonsWaterPerWeek;
+  }
+
+  function 
+  // let totalGarden = Object.keys(estate);
+  // for (let i = 0; i < totalGarden.length; i++) {
+  //   let totalWater = totalGarden[i];
+  //   let garden = estate[totalWater];
+  //   numGallons += plant.gallonsWaterPerWeek;
+
+  //   return numGallons;
+  // }
   return numGallons;
 }
 
@@ -270,9 +293,15 @@ function calculateWaterUsagePerWeek(estate) {
  * This will use the botanist's special algorithm to make new colors of roses.
  *
  */
+// let newRose = object.assign({}, roses);
 function cloneRose(plant) {
   let clone = {};
   // Your Code Here!
+  // for(let roses of estate.roseArbor){
+  //   if(plant.type === "rose"){
+  //     clone.push()
+  //   }
+  // }
   // Given a plant, clone it and return the new plant
   // Hint: You do this in the Reading!  copyObject...
 
