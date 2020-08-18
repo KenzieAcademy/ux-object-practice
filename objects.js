@@ -159,7 +159,7 @@ function addPlantToEstate(estate, plant) {
  * Example: "A Rose which has green leaves that are rounded with a point.  The flowers are red concentric circles of pedals. "
  */
 function describePlant(plant) {
-    let description = `${plant.type}: a ${plant.flowerColor} flower that looks like ${plant.flowerDescription}. It has ${plant.leafColor} leaves that are ${plant.leafDescription}.`;
+    let description = `${plant.type}: a ${plant.flowerColor} flower that looks like ${plant.flowerDescription}. It has ${plant.leafColor} leaves that are ${plant.leafDescription}. `;
     // Your Code Here!
     // Return a string describing all the visual features of the given plant
     return description;
@@ -174,8 +174,10 @@ function describePlant(plant) {
  * // Example: "The Rose Garden has 10 types of plants in it.  It contains: A"
  */
 function describeGarden(gardenName, listOfPlants) {
+   
     for (let i = 0; i < listOfPlants.length; i++) {
-    let description = (listOfPlants.length > 0) ? `The ${gardenName} area has ${listOfPlants.length} plants in it. Plants in garden - ${describePlant(listOfPlants[i])}` : `The ${gardenName} area is empty right now.`;
+    let description = (listOfPlants.length > 0) ? `The ${gardenName} area has ${listOfPlants.length} plants in it. Plants in this garden - ` : `The ${gardenName} area is empty right now.`;
+    for (var plant of listOfPlants) { description += describePlant(plant)}
     // Your Code Here!
     // Given a list of plants, describe every plant in the list.
     // return a string which is the description.
@@ -220,26 +222,12 @@ function describeEstate(estate) {
  */
 function calculateWaterUsagePerWeek(estate) {
     let numGallons = 0;
-    // for (var garden in estate) {
-    //     for (let i = 0; i < garden.length; i++) {
-    //         var plant = garden[i];
-    //         console.log(plant);
-    //         let plantThirst = plant.gallonsWaterPerWeek;
-    //         return plantThirst;
-    //     }
-    //     console.log(plantThirst);
-    // };
-    // 
-    // Array.from(estate).forEach(addGallons);
-    // function addGallons(value) {
-    //     let plantThirst = value.gallonsWaterPerWeek;
-    //     numGallons += plantThirst;
-    //     return numGallons;
-    // }
-    // I'm gonna eat my KEYBOARD.
-    console.log(numGallons);
+    for (var garden in estate) {
+    for (let i = 0; i < estate[garden].length; i++) {
+        numGallons += estate[garden][i].gallonsWaterPerWeek;
+    }}
     // Your Code Here!
-    return numGallons;
+    return Math.floor(numGallons);
 }
 
 /* ---------------------------------------------------------------------------
@@ -273,6 +261,9 @@ function calculateWaterUsagePerWeek(estate) {
  */
 function cloneRose(plant) {
     let clone = {};
+    for (let traits in plant) {
+        clone[traits] = plant[traits];
+    }
     // Your Code Here!
     // Given a plant, clone it and return the new plant
     // Hint: You do this in the Reading!  copyObject...
@@ -324,6 +315,12 @@ function changeColorOfPlant(plant) {
  * Otherwise you will produce flowerless roses.
  */
 function cloneAllTheRosesAndChangeTheirColors(estate) {
+    let clonedRoses = [];
+    for (let rose of estate.roseArbor) {
+        let clonedRose = cloneRose(rose);
+        clonedRoses.push(clonedRose);
+    }
+    estate.roseArbor = estate.roseArbor.concat(clonedRoses);
     // Your Code Here! 
 
     // for each rose...
