@@ -59,18 +59,33 @@ function createPlant(
   gallonsWaterPerWeek,
   amountOfSunNeeded
 ) {
-  let plant = {
-    type: type,
-    isPerennial: isPerennial,
-    leafDescription: leafDescription,
-    leafColor: leafColor,
-    flowerColor: flowerColor,
-    flowerDescription: flowerDescription,
-    gallonsWaterPerWeek: gallonsWaterPerWeek,
-    amountOfSunNeeded: amountOfSunNeeded,
-  };
+  class Plant {
+    constructor(type, isPerennial /*etc.. finish the rest of these*/) {
+      this.type = type;
+      this.isPerennial = isPerennial;
+      //etc... finish the rest of these
+    }
 
-  return plant;
+    // This function is already done for you.
+    // The changes are all highlighted in bold
+    // This is the same as the describePlant(plant) function
+    describe() {
+      let description = `A ${this.type} which has ${this.leafColor} leaves ${this.leafDescription}.  The flowers are ${this.flowerColor} ${this.flowerDescription} `;
+      return description;
+    }
+  }
+  // let plant = {
+  //   type: type,
+  //   isPerennial: isPerennial,
+  //   leafDescription: leafDescription,
+  //   leafColor: leafColor,
+  //   flowerColor: flowerColor,
+  //   flowerDescription: flowerDescription,
+  //   gallonsWaterPerWeek: gallonsWaterPerWeek,
+  //   amountOfSunNeeded: amountOfSunNeeded,
+  // };
+
+  // return plant;
 }
 
 /* ------------------------------------------------
