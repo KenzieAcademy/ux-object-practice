@@ -40,7 +40,15 @@ class Plant {
           this.perennialGarden = new Garden("Perennial Garden");
           this.slopePlanter = new Garden("Slope Planter");
       }
-      
-  }
+      describeEstate() {
+          let description = `The estate has ${this.Object.keys(estate).length} gardens: `;
+          for (let gardenName in estate) {
+            let listOfPlants = estate[gardenName];
+            description += describeGarden(gardenName, listOfPlants);
+          }
+          return description;
+        }
+      }
+  
 
   
