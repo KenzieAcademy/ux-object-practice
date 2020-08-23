@@ -1,20 +1,13 @@
 /*
     Object Practice
-
     Gardening!
-
     You were hired to work as a landscaper for a large estate.
-
     See garden.jpg
-
     The owner wants you to help them organize their gardens.
-
     They have decided there will be three gardens: the rose arbor, 
     the perennial garden, and the slope planters.
-
     You want to use your newly learned programming skills to make
     this job easier.  
-
     Complete the following exercises to make your work on the garden easier.
 */
 
@@ -23,17 +16,13 @@
     Do not just highlight a section and try to run it, because the tests will
     throw an exception 
     ReferenceError: createdPopulatedEstate is not defined
-
     If you see that exception, make sure you deselect any text and then click Run Code again
-
     Remember to Save the file before you click Run Code!
 */
 
 /* ---------------------------------------------------------------------------
     Exercise One
-
     Creating a plant
-
     In order to keep track of your plants, you need to store them in your program.
     Complete the createPlant() function, which returns an object representing a plant.
     It should include all of the properties listed in the comment above the function.
@@ -59,49 +48,29 @@ function createPlant(
   gallonsWaterPerWeek,
   amountOfSunNeeded
 ) {
-  class Plant {
-    constructor(type, isPerennial /*etc.. finish the rest of these*/) {
-      this.type = type;
-      this.isPerennial = isPerennial;
-      //etc... finish the rest of these
-    }
+  let plant = {
+    type: type,
+    isPerennial: isPerennial,
+    leafDescription: leafDescription,
+    leafColor: leafColor,
+    flowerColor: flowerColor,
+    flowerDescription: flowerDescription,
+    gallonsWaterPerWeek: gallonsWaterPerWeek,
+    amountOfSunNeeded: amountOfSunNeeded,
+  };
 
-    // This function is already done for you.
-    // The changes are all highlighted in bold
-    // This is the same as the describePlant(plant) function
-    describe() {
-      let description = `A ${this.type} which has ${this.leafColor} leaves ${this.leafDescription}.  The flowers are ${this.flowerColor} ${this.flowerDescription} `;
-      return description;
-    }
-  }
-  // let plant = {
-  //   type: type,
-  //   isPerennial: isPerennial,
-  //   leafDescription: leafDescription,
-  //   leafColor: leafColor,
-  //   flowerColor: flowerColor,
-  //   flowerDescription: flowerDescription,
-  //   gallonsWaterPerWeek: gallonsWaterPerWeek,
-  //   amountOfSunNeeded: amountOfSunNeeded,
-  // };
-
-  // return plant;
+  return plant;
 }
 
 /* ------------------------------------------------
     Exercise Two
-
     The owner wants you to decide where to put every new plant they get.
-
     Each plant must go in one of the three gardens of the estate.
-
     The createEstate() has already been written for you, which returns an object representing the entire estate.
     The estate contains three collections of plants: 
     the roseArbor, the perennialGarden, and the slopePlanters.
-
     Now complete the function addPlantToEstate()
     This should decide, based upon the plant's properties, where to put the plant in the estate.  
-
     The rose arbor should contain all of the roses.
     The perennial garden should contain only perennials.  However, the perennial garden doesn't get that much sun.  
     No plants with an amountOfSunNeeded greater than 5 should be placed in the perennial garden.
@@ -144,25 +113,18 @@ function addPlantToEstate(estate, plant) {
 
 /* ------------------------------------------------
     Exercise Three
-
     The owner wants to have an easy way to hear about the plants in their garden.
-
     So you decide to write some functions which describe the plants.
-
     Complete the describePlant(), describePlants(), and describeGarden() functions below.
-
     They should each return a string, which is a readible english paragraph that nicely describes
     the visual features of the plant or a list of plants, or the entire estate.
-
     Feel free to be as elaborate as you wish!
-
     If you want examples of different plants, set a breakpoint and run the test. 
     It will go through several example plants.
     
     Try to have as little redundent code as possible! 
     
     Hint: describeEstate can call describeGarden which can call describePlant
-
     Hint2: YOu can use Template literals here to make this easy! If you have not used those yet,
     read up on them here: https://flaviocopes.com/javascript-template-literals/  
     `A ${plant.name} which has ....`
@@ -245,10 +207,8 @@ function describeEstate(estate) {
 
 /* ---------------------------------------------------------------------------
     Exercise Four
-
     The owner wants you to tell them how much water the entire garden is going
     to need per week.
-
     Complete the calculateWaterUsagePerWeek() function.
 */
 
@@ -276,17 +236,13 @@ function calculateWaterUsagePerWeek(estate) {
 
 /* ---------------------------------------------------------------------------
     Exercise Five
-
     Clone a plant
-
     The botanist of the estate wants more colors of roses, so they have devised a way to
     alter the color of a plant.
     They want you to clone each of the roses in the garden giving them more
     elaborate colors.
-
     First, complete cloneRose().
     Given a plant, this should clone it and return a copy with a new color.
-
     Complete cloneAllTheRosesAndChangeTheirColors().  
     This function should go attempt to clone all the roses in the garden.  
     Make sure your algorithm does not clone or change the color of flawed plants!
