@@ -241,7 +241,7 @@ function calculateWaterUsagePerWeek(estate) {
   }
 
   return Math.floor (numGallons);
-  // Your Code Here!
+  
 }
 
 /* ---------------------------------------------------------------------------
@@ -587,3 +587,5 @@ function cloneAllTheRoses(estate) {
     ];
   }
 }
+
+
