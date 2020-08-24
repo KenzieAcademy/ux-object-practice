@@ -59,7 +59,16 @@ function createPlant(
   gallonsWaterPerWeek,
   amountOfSunNeeded
 ) {
-  let plant = {};
+  let plant = {
+    type,
+    isPerennial,
+    leafDescription,
+    leafColor,
+    flowerColor,
+    flowerDescription,
+    gallonsWaterPerWeek,
+    amountOfSunNeeded,
+};  
   // Your Code Here!
   // Create a plant object, populate it with all of the values from the arguments, and return it.
   // Hint: You can name every key in your object the same as the variable from the argument to this function.
@@ -103,7 +112,14 @@ function createEstate() {
  * This should add the given plant into one of the three arrays within the estate.
  */
 function addPlantToEstate(estate, plant) {
-  // Your Code Here!
+  if (plant.type == "rose") {
+    estate.roseArbor.push(plant);
+  } if (plant.isPerennial && plant.amountOfSunNeeded <=5 ) {
+    estate.perennialGarden.push(plant);
+  } else {
+    estate.slopePlanters.push(plant);
+  }
+    // Your Code Here!
   // decide where to put the plant according to its features
   /*
     if the plant is a rose
@@ -151,7 +167,7 @@ function addPlantToEstate(estate, plant) {
  * Example: "A Rose which has green leaves that are rounded with a point.  The flowers are red concentric circles of pedals. "
  */
 function describePlant(plant) {
-  let description = "";
+  let description = `A ${plant.type} which has ${plant.leafColor} leaves that are ${plant.leafDescription}. The flowers are ${plant.flowerColor} ${plant.flowerDescription}.`;
   // Your Code Here!
   // Return a string describing all the visual features of the given plant
   return description;
@@ -165,7 +181,10 @@ function describePlant(plant) {
  * // Example: "The Rose Garden has 10 types of plants in it.  It contains: A"
  */
 function describeGarden(gardenName, listOfPlants) {
-  let description = "";
+  let description = `The ${gardenName} has ${listOfPlants.length} types of plants in it: `;
+  for (let plant of listOfPlants) {
+    description += describePlant(plant);
+  }
   // Your Code Here!
   // Given a list of plants, describe every plant in the list.
   // return a string which is the description.
@@ -181,7 +200,11 @@ function describeGarden(gardenName, listOfPlants) {
  * This should describe every garden and every plant.
  */
 function describeEstate(estate) {
-  let description = "";
+  let description = "The estate has 3 gardens. They are: ";
+  for (let gardenName in estate) {
+    let listOfPlants = estate[gardenName];
+    description += describeGarden(gardenName, estate[gardenName] );
+  }
   // Your Code Here!
   // Return a string describing all the different visual features of all the gardens in the estate.
   // Feel free to make up various details.
@@ -210,9 +233,15 @@ function describeEstate(estate) {
  */
 function calculateWaterUsagePerWeek(estate) {
   let numGallons = 0;
-  // Your Code Here!
+  for (let gardenName in estate) {
+    let listOfPlants = estate[gardenName];
+    for (let plant of listOfPlants ) {
+      numGallons += plant.gallonsWaterPerWeek;
+    }
+  }
 
-  return numGallons;
+  return Math.floor (numGallons);
+  
 }
 
 /* ---------------------------------------------------------------------------
@@ -246,6 +275,9 @@ function calculateWaterUsagePerWeek(estate) {
  */
 function cloneRose(plant) {
   let clone = {};
+  for (let property in plant) {
+    clone[property] = plant[property];
+  }
   // Your Code Here!
   // Given a plant, clone it and return the new plant
   // Hint: You do this in the Reading!  copyObject...
@@ -260,6 +292,15 @@ function cloneRose(plant) {
  * This should clone every rose and add the new plant to the garden.
  */
 function cloneAllTheRoses(estate) {
+  let clonedRosey = [];
+  for (let rose of estate.roseArbor) {
+    let clonedRose = cloneRose(rose);
+    clonedRosey.push(clonedRose);
+  }
+  for (let clonedRose of clonedRosey) {
+    estate.roseArbor.push(clonedRose);
+  
+  }
   // Your Code Here!
   // for each rose...
   // Hint: Watch out for modifying an array you are currently looping through!  How can you avoid that?
@@ -546,3 +587,5 @@ function cloneAllTheRoses(estate) {
     ];
   }
 }
+
+
