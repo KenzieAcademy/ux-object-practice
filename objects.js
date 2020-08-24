@@ -317,14 +317,14 @@ function changeColorOfPlant(plant) {
 // DO NOT CHANGE ANYTHING IN THIS
 
 /**
- * cloneAllTheRosesAndChangeTheirColors
+ * cloneAllTheRoses
  * @param {Object} estate - An estate object
  *
  * This should attempt to clone every rose and add the plant to the garden.
  * Just watch out for flawed plants!  Don't attempt to clone flawed plants.
  * Otherwise you will produce flowerless roses.
  */
-function cloneAllTheRosesAndChangeTheirColors(estate) {
+function cloneAllTheRoses(estate) {
   let newRose = [];
   for (let originalRose of estate.roseArbor) {
     if (originalRose.isFlawed) {
@@ -487,16 +487,16 @@ function cloneAllTheRosesAndChangeTheirColors(estate) {
 
     console.log("* Clone All Roses - First Run");
     let initialNumRoses = estate5.roseArbor.length;
-    cloneAllTheRosesAndChangeTheirColors(estate5);
+    cloneAllTheRoses(estate5);
     console.log(
       estate5.roseArbor.length > 0 &&
         estate5.roseArbor.length === initialNumRoses * 2
     );
 
     console.log("* Clone All Roses - After a few runs... - No flawed roses.");
-    cloneAllTheRosesAndChangeTheirColors(estate5);
-    cloneAllTheRosesAndChangeTheirColors(estate5);
-    cloneAllTheRosesAndChangeTheirColors(estate5);
+    cloneAllTheRoses(estate5);
+    cloneAllTheRoses(estate5);
+    cloneAllTheRoses(estate5);
     let hasNoRuinedRoses = true;
     for (let rose of estate5.roseArbor) {
       if (rose.flowerColor == null) {
