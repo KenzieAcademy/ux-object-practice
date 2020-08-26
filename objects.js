@@ -261,8 +261,9 @@ function calculateWaterUsagePerWeek(estate) {
  */
 function cloneRose(plant) {
     let clone = {};
-    for (let traits in plant) {
-        clone[traits] = plant[traits];
+    let traits = Object.keys(plant); 
+    for (let trait of traits) {
+        clone[trait] = plant[trait];
     }
     // Your Code Here!
     // Given a plant, clone it and return the new plant
