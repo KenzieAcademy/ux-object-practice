@@ -53,14 +53,14 @@ class Estate {
         }} 
     }
     describe() {
-        let description = `North of the Fountain of Flowers is the Rose Arbor. ${Garden.describe(this.roseArbor)} 
-        West of the Fountain of Flowers is the Perennial Garden. ${Garden.describe(this.perennialGarden)} 
-        South and East of the Fountain of Flowers are the Sloped Planters. ${Garden.describe(this.slopePlanters)}`;
+        let description = `North of the Fountain of Flowers is the Rose Arbor. ${this.roseArbor} 
+        West of the Fountain of Flowers is the Perennial Garden. ${this.perennialGarden} 
+        South and East of the Fountain of Flowers are the Sloped Planters. ${this.slopePlanters}`;
     }
     calculateWaterUsagePerWeek() {
         let numGallons = 0;
-        for (let i = 0; i < this[Garden].length; i++) {
-        numGallons += This[Garden][i].gallonsWaterPerWeek;
+        for (let i = 0; i < this.Garden.length; i++) {
+        numGallons += this.Garden[i].gallonsWaterPerWeek;
         }
         return Math.floor(numGallons);
     }
