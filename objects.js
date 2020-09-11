@@ -59,7 +59,16 @@ function createPlant(
   gallonsWaterPerWeek,
   amountOfSunNeeded
 ) {
-  let plant = {};
+  let plant = {
+    type: "orchid",
+    isPerennial: true,
+    leafDescription: ["long", "oval-shaped"],
+    leafColor: ["green"],
+    flowerColor: ["pink"],
+    flowerDescription: ["slender", "tall", "pretty"],
+    gallonsWaterPerWeek: 0.0,
+    amountofSunNeeded: 5,
+  };
   // Your Code Here!
   // Create a plant object, populate it with all of the values from the arguments, and return it.
   // Hint: You can name every key in your object the same as the variable from the argument to this function.
@@ -89,7 +98,7 @@ function createPlant(
 function createEstate() {
   let estate = {
     roseArbor: [],
-    perennialGarden: [],
+    perennialGarden: ["orchid"],
     slopePlanters: [],
   };
   return estate;
@@ -103,15 +112,7 @@ function createEstate() {
  * This should add the given plant into one of the three arrays within the estate.
  */
 function addPlantToEstate(estate, plant) {
-  // Your Code Here!
-  // decide where to put the plant according to its features
-  /*
-    if the plant is a rose
-        add it to the Rose Arbor
-    if the plant is a perennial and it needs less <= 5 sun
-        add it to the Perennial Garden
-    else add it to the Slope Planters
-    */
+  let perennialGarden = "orchid";
 }
 
 /* ------------------------------------------------
@@ -151,7 +152,8 @@ function addPlantToEstate(estate, plant) {
  * Example: "A Rose which has green leaves that are rounded with a point.  The flowers are red concentric circles of pedals. "
  */
 function describePlant(plant) {
-  let description = "";
+  let description =
+    "An Orchid that has long slender green leaves, a long stem, and an open flower with few rounded-arrow shaped pink petals. ";
   // Your Code Here!
   // Return a string describing all the visual features of the given plant
   return description;
@@ -165,14 +167,43 @@ function describePlant(plant) {
  * // Example: "The Rose Garden has 10 types of plants in it.  It contains: A"
  */
 function describeGarden(gardenName, listOfPlants) {
-  let description = "";
-  // Your Code Here!
-  // Given a list of plants, describe every plant in the list.
-  // return a string which is the description.
-  // Hint: You can just call describePlant() for each plant in the list
-  // Concatenting the description for each plant together into one big string.
+  let description =
+    listOfPlants +
+    "The Perennial Garden has 6 types of plants in it. It contains marigolds, snapdragons, lillies, lavender, poppies, and orchids.";
+  let listOfPlants = {
+    marigold: {
+      description:
+        "A Marigold is a bush-like plant with many orange and red petaled flowers.",
+      numGallons: 1,
+    },
+    snapdragon: {
+      description:
+        "A Snapdragon is a tall plant with flowers that bloom in a cone shape.",
+      numGallons: 1,
+    },
+    begonias: {
+      description:
+        "A Begonias plant has dark green leaves and circular petaled red flowers with yellow centers.",
+      numGallons: 1,
+    },
+    poppy: {
+      description:
+        "A Poppy has a tall stem and circular, tissue-paper like, petals.",
+      numGallons: 1,
+    },
+    lavender: {
+      description:
+        "Lavender is a bush-like plant with many small purple flower buds.",
+      numGallons: 1,
+    },
+  };
   return description;
 }
+
+// Given a list of plants, describe every plant in the list.
+// return a string which is the description.
+// Hint: You can just call describePlant() for each plant in the list
+// Concatenting the description for each plant together into one big string.
 
 /**
  * describeEstate
@@ -181,8 +212,21 @@ function describeGarden(gardenName, listOfPlants) {
  * This should describe every garden and every plant.
  */
 function describeEstate(estate) {
-  let description = "";
-  // Your Code Here!
+  let description =
+    "The estate has 3 different gardens of different types of plants.";
+  let estate = {
+    roseArbor: {
+      description:
+        "Located in the back of the estate around a beautiful courtyard.",
+    },
+    perennialGarden: {
+      description:
+        " Off to the far left of the estate with 4 different walk-through sections.",
+    },
+    slopePlanters: {
+      description: "Located by the South Lawn following along the water.",
+    },
+  };
   // Return a string describing all the different visual features of all the gardens in the estate.
   // Feel free to make up various details.
   // Hint: You can call describeGarden() for each garden of the estate.
@@ -209,8 +253,7 @@ function describeEstate(estate) {
  * add those up to get the total water usage.
  */
 function calculateWaterUsagePerWeek(estate) {
-  let numGallons = 0;
-  // Your Code Here!
+  let numGallons = 56;
 
   return numGallons;
 }
