@@ -69,6 +69,7 @@ function createPlant(
     gallonsWaterPerWeek: 0.0,
     amountofSunNeeded: 5,
   };
+  console.log({ plant });
   // Your Code Here!
   // Create a plant object, populate it with all of the values from the arguments, and return it.
   // Hint: You can name every key in your object the same as the variable from the argument to this function.
@@ -95,15 +96,6 @@ function createPlant(
     The rest of the plants should be placed in the slope planters.
 */
 
-function createEstate() {
-  let estate = {
-    roseArbor: [],
-    perennialGarden: ["orchid"],
-    slopePlanters: [],
-  };
-  return estate;
-}
-
 /**
  * addPlantToEstate
  * @param {Object} estate - The estate object - created by calling createEstate()
@@ -112,7 +104,15 @@ function createEstate() {
  * This should add the given plant into one of the three arrays within the estate.
  */
 function addPlantToEstate(estate, plant) {
-  let perennialGarden = "orchid";
+  if (plant.type === "rose") {
+    estate.roseArbor = [...estate.roseArbor, plant];
+    return;
+  }
+  if (plant.isPerennial && plant.amountOfSunNeeded <= 5) {
+    estate.perennialGarden.push(plant);
+    return;
+  }
+  estate.slopePlanters.push(plant);
 }
 
 /* ------------------------------------------------
@@ -152,8 +152,7 @@ function addPlantToEstate(estate, plant) {
  * Example: "A Rose which has green leaves that are rounded with a point.  The flowers are red concentric circles of pedals. "
  */
 function describePlant(plant) {
-  let description =
-    "An Orchid that has long slender green leaves, a long stem, and an open flower with few rounded-arrow shaped pink petals. ";
+  let description = `A ${plant.type} which has ${plant.leafColor} leaves that are ${plant.leafDescription}. The flowers are ${plant.flowerColor} ${plant.flowerDescription}`;
   // Your Code Here!
   // Return a string describing all the visual features of the given plant
   return description;
@@ -167,44 +166,18 @@ function describePlant(plant) {
  * // Example: "The Rose Garden has 10 types of plants in it.  It contains: A"
  */
 function describeGarden(gardenName, listOfPlants) {
-  let description =
-    listOfPlants +
-    "The Perennial Garden has 6 types of plants in it. It contains marigolds, snapdragons, lillies, lavender, poppies, and orchids.";
-  let listOfPlants = {
-    marigold: {
-      description:
-        "A Marigold is a bush-like plant with many orange and red petaled flowers.",
-      numGallons: 1,
-    },
-    snapdragon: {
-      description:
-        "A Snapdragon is a tall plant with flowers that bloom in a cone shape.",
-      numGallons: 1,
-    },
-    begonias: {
-      description:
-        "A Begonias plant has dark green leaves and circular petaled red flowers with yellow centers.",
-      numGallons: 1,
-    },
-    poppy: {
-      description:
-        "A Poppy has a tall stem and circular, tissue-paper like, petals.",
-      numGallons: 1,
-    },
-    lavender: {
-      description:
-        "Lavender is a bush-like plant with many small purple flower buds.",
-      numGallons: 1,
-    },
-  };
+  let description = `The ${gardenName} has ${ListOfPlants.length} plants in it.`;
+
+  for (let plant of listOfPlants) {
+    description += describePlant(plant);
+  }
+
+  // Given a list of plants, describe every plant in the list.
+  // return a string which is the description.
+  // Hint: You can just call describePlant() for each plant in the list
+  // Concatenting the description for each plant together into one big string.
   return description;
 }
-
-// Given a list of plants, describe every plant in the list.
-// return a string which is the description.
-// Hint: You can just call describePlant() for each plant in the list
-// Concatenting the description for each plant together into one big string.
-
 /**
  * describeEstate
  * @param {Object} estate - An estate object
@@ -212,26 +185,16 @@ function describeGarden(gardenName, listOfPlants) {
  * This should describe every garden and every plant.
  */
 function describeEstate(estate) {
-  let description =
-    "The estate has 3 different gardens of different types of plants.";
-  let estate = {
-    roseArbor: {
-      description:
-        "Located in the back of the estate around a beautiful courtyard.",
-    },
-    perennialGarden: {
-      description:
-        " Off to the far left of the estate with 4 different walk-through sections.",
-    },
-    slopePlanters: {
-      description: "Located by the South Lawn following along the water.",
-    },
-  };
-  // Return a string describing all the different visual features of all the gardens in the estate.
-  // Feel free to make up various details.
-  // Hint: You can call describeGarden() for each garden of the estate.
-  return description;
+  let description = `The estate has ${Object.keys(estate).length} gardens:`;
+
+  for (const [gardenName, listOfPlants] of Object.entries(estate)) {
+    description += describeGarden(gardenName, listOfPlants);
+  }
 }
+// Return a string describing all the different visual features of all the gardens in the estate.
+// Feel free to make up various details.
+// Hint: You can call describeGarden() for each garden of the estate.
+return description;
 
 /* ---------------------------------------------------------------------------
     Exercise Four
@@ -253,9 +216,15 @@ function describeEstate(estate) {
  * add those up to get the total water usage.
  */
 function calculateWaterUsagePerWeek(estate) {
-  let numGallons = 56;
+  let numGallons = 0;
 
-  return numGallons;
+  Object.values(estate).forEach((listOfPlants) => {
+    numGallons += listOfPlants.reduce((prevGallonCount, currentPlant) => {
+      console.log({ prevGallonCount, currentPlant });
+      return prevGallonCount + 1;
+    }, 0);
+  });
+  return Math.floor(numGallons);
 }
 
 /* ---------------------------------------------------------------------------
@@ -289,10 +258,12 @@ function calculateWaterUsagePerWeek(estate) {
  */
 function cloneRose(plant) {
   let clone = {};
+  for (const key in plant) {
+    clone[key] = plant[key];
+  }
   // Your Code Here!
   // Given a plant, clone it and return the new plant
   // Hint: You do this in the Reading!  copyObject...
-
   return clone;
 }
 
@@ -303,6 +274,9 @@ function cloneRose(plant) {
  * This should clone every rose and add the new plant to the garden.
  */
 function cloneAllTheRoses(estate) {
+  const newRoses = estate.roseArbor.map((rose) => clonseRose(rose));
+
+  estate.roseArbor = [...estate.roseArbor, ...newRoses];
   // Your Code Here!
   // for each rose...
   // Hint: Watch out for modifying an array you are currently looping through!  How can you avoid that?
